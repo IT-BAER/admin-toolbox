@@ -5,11 +5,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Wpf.Ui.Controls;
 using Forms = System.Windows.Forms;
 
 namespace AdminToolbox.Views;
 
-public partial class MainWindow : Window
+public partial class MainWindow : FluentWindow
 {
     // -----------------------------------------------------------------------
     // Tray icon
@@ -180,10 +181,21 @@ public partial class MainWindow : Window
     // -----------------------------------------------------------------------
     // Tool launch
     // -----------------------------------------------------------------------
-    private void ToolButton_Click(object sender, RoutedEventArgs e)
+    private async void ToolButton_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is Button btn && btn.Tag is AdminTool tool)
+        if (sender is not Button btn || btn.Tag is not AdminTool tool)
+            return;
+
+        btn.IsEnabled = false;
+        try
+        {
             LaunchTool(tool);
+        }
+        finally
+        {
+            await Task.Delay(2000);
+            btn.IsEnabled = true;
+        }
     }
 
     private void LaunchTool(AdminTool tool)

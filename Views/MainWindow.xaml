@@ -1,27 +1,30 @@
-<Window x:Class="AdminToolbox.Views.MainWindow"
+<ui:FluentWindow x:Class="AdminToolbox.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:local="clr-namespace:AdminToolbox.Views"
-        ui:WindowHelper.UseModernWindowStyle="True"
+        ExtendsContentIntoTitleBar="True"
         Title="Admin Toolbox"
         MinWidth="520" MinHeight="420"
         Width="620" Height="580"
         WindowStartupLocation="CenterScreen"
-        Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+        Background="{DynamicResource ApplicationBackgroundBrush}"
         StateChanged="Window_StateChanged"
         Closing="Window_Closing">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <ui:TitleBar Grid.Row="0" Title="Admin Toolbox"/>
+
         <!-- ===== Title bar area ===== -->
-        <Border Grid.Row="0"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+        <Border Grid.Row="1"
+                Background="{DynamicResource ControlFillColorDefaultBrush}"
                 Padding="20,14">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -30,8 +33,8 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <ui:FontIcon Glyph="&#xE8D7;" FontSize="22"
-                                 Foreground="{DynamicResource SystemControlForegroundAccentBrush}"
+                    <ui:SymbolIcon Symbol="ShieldKeyhole24" FontSize="22"
+                                 Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"
                                  Margin="0,0,10,0"/>
                     <StackPanel>
                         <TextBlock Text="Admin Toolbox" FontSize="16" FontWeight="SemiBold"/>
@@ -42,26 +45,26 @@
 
                 <!-- Refresh / Lock buttons -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button x:Name="RefreshButton"
+                    <ui:Button x:Name="RefreshButton"
                             Click="RefreshButton_Click"
                             ToolTip="Refresh detected RSAT tools"
-                            Style="{DynamicResource DefaultButtonStyle}"
+                            Appearance="Secondary"
                             Padding="8,6" Margin="0,0,4,0">
-                        <ui:FontIcon Glyph="&#xE72C;" FontSize="14"/>
-                    </Button>
-                    <Button x:Name="LockButton"
+                        <ui:SymbolIcon Symbol="ArrowSync24" FontSize="14"/>
+                    </ui:Button>
+                    <ui:Button x:Name="LockButton"
                             Click="LockButton_Click"
                             ToolTip="Lock — clear credentials from memory"
-                            Style="{DynamicResource DefaultButtonStyle}"
+                            Appearance="Secondary"
                             Padding="8,6" Margin="0,0,4,0">
-                        <ui:FontIcon Glyph="&#xE72E;" FontSize="14"/>
-                    </Button>
+                        <ui:SymbolIcon Symbol="LockClosed24" FontSize="14"/>
+                    </ui:Button>
                 </StackPanel>
             </Grid>
         </Border>
 
         <!-- ===== Tool grid ===== -->
-        <ScrollViewer x:Name="ToolsScrollViewer" Grid.Row="1"
+        <ScrollViewer x:Name="ToolsScrollViewer" Grid.Row="2"
                       VerticalScrollBarVisibility="Auto" Padding="16"
                       CanContentScroll="False"
                       PreviewMouseWheel="ToolsScrollViewer_PreviewMouseWheel">
@@ -81,19 +84,20 @@
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <Border x:Name="CardBorder"
-                                            Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
                                             CornerRadius="8"
                                             BorderThickness="1"
-                                            BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+                                            BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}">
 
                                         <StackPanel x:Name="CardContent"
                                                     VerticalAlignment="Center"
                                                     HorizontalAlignment="Center"
                                                     Margin="12">
-                                            <ui:FontIcon Glyph="{Binding IconGlyph}"
-                                                         FontSize="36"
-                                                         Foreground="{DynamicResource SystemControlForegroundAccentBrush}"
-                                                         HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding IconGlyph}"
+                                                       FontFamily="Segoe MDL2 Assets"
+                                                       FontSize="36"
+                                                       Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"
+                                                       HorizontalAlignment="Center"/>
                                             <TextBlock Text="{Binding Name}"
                                                        FontSize="13" FontWeight="SemiBold"
                                                        HorizontalAlignment="Center"
@@ -111,12 +115,12 @@
                                         <Trigger Property="IsMouseOver" Value="True">
                                             <Setter TargetName="CardBorder"
                                                     Property="Background"
-                                                    Value="{DynamicResource SystemControlHighlightListLowBrush}"/>
+                                                    Value="{DynamicResource ControlFillColorSecondaryBrush}"/>
                                         </Trigger>
                                         <Trigger Property="IsPressed" Value="True">
                                             <Setter TargetName="CardBorder"
                                                     Property="Background"
-                                                    Value="{DynamicResource SystemControlHighlightListMediumBrush}"/>
+                                                    Value="{DynamicResource ControlFillColorTertiaryBrush}"/>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -128,12 +132,12 @@
         </ScrollViewer>
 
         <!-- ===== Status bar ===== -->
-        <Border Grid.Row="2"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
+        <Border Grid.Row="3"
+                Background="{DynamicResource ControlFillColorDefaultBrush}"
                 Padding="16,6">
             <TextBlock x:Name="StatusBar"
                        FontSize="11" Opacity="0.7"
                        Text="Ready — click a tool to launch it with your domain admin credentials."/>
         </Border>
     </Grid>
-</Window>
+</ui:FluentWindow>

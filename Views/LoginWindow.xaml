@@ -1,72 +1,81 @@
-<Window x:Class="AdminToolbox.Views.LoginWindow"
+<ui:FluentWindow x:Class="AdminToolbox.Views.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ui="http://schemas.modernwpf.com/2019"
-        ui:WindowHelper.UseModernWindowStyle="True"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        ExtendsContentIntoTitleBar="True"
         Title="Admin Toolbox — Login"
         Width="420" Height="480"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+        Background="{DynamicResource ApplicationBackgroundBrush}">
 
-    <Grid Margin="32">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Logo / Header -->
-        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,16,0,24">
-            <ui:FontIcon Glyph="&#xE8D7;" FontSize="48"
-                         Foreground="{DynamicResource SystemControlForegroundAccentBrush}"/>
-            <TextBlock Text="Admin Toolbox"
-                       FontSize="24" FontWeight="SemiBold"
-                       HorizontalAlignment="Center" Margin="0,8,0,0"/>
-            <TextBlock x:Name="SubtitleText" Text="Sign in with your domain admin account."
-                       FontSize="13" Opacity="0.7"
-                       HorizontalAlignment="Center" Margin="0,4,0,0" TextWrapping="Wrap"/>
-        </StackPanel>
+        <ui:TitleBar Grid.Row="0" Title="Admin Toolbox — Login" ShowMaximize="False"/>
 
-        <!-- Username -->
-        <TextBlock Grid.Row="1" Text="Username" FontSize="13" Margin="0,0,0,4"/>
-        <TextBox x:Name="UsernameBox"
-                 Grid.Row="2"
-                 ui:ControlHelper.PlaceholderText="admin@corp.local"
-                 Text=""
-                 Margin="0,0,0,12"
-                 KeyDown="Input_KeyDown"/>
+        <Grid Grid.Row="1" Margin="32,0,32,32">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <!-- Password -->
-        <TextBlock Grid.Row="3" Text="Password" FontSize="13" Margin="0,0,0,4"/>
-        <PasswordBox x:Name="PasswordBox"
-                     Grid.Row="4"
-                     Margin="0,0,0,8"
-                     ui:ControlHelper.PlaceholderText="Domain admin password"
+            <!-- Logo / Header -->
+            <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,16,0,24">
+                <ui:SymbolIcon Symbol="ShieldKeyhole24" FontSize="48"
+                             Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"/>
+                <TextBlock Text="Admin Toolbox"
+                           FontSize="24" FontWeight="SemiBold"
+                           HorizontalAlignment="Center" Margin="0,8,0,0"/>
+                <TextBlock x:Name="SubtitleText" Text="Sign in with your domain admin account."
+                           FontSize="13" Opacity="0.7"
+                           HorizontalAlignment="Center" Margin="0,4,0,0" TextWrapping="Wrap"/>
+            </StackPanel>
+
+            <!-- Username -->
+            <TextBlock Grid.Row="1" Text="Username" FontSize="13" Margin="0,0,0,4"/>
+            <ui:TextBox x:Name="UsernameBox"
+                     Grid.Row="2"
+                     PlaceholderText="admin@corp.local"
+                     Text=""
+                     Margin="0,0,0,12"
                      KeyDown="Input_KeyDown"/>
 
-        <!-- Error message -->
-        <TextBlock x:Name="ErrorText"
-                   Grid.Row="5"
-                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
-                   FontSize="12"
-                   TextWrapping="Wrap"
-                   Margin="0,0,0,8"
-                   Visibility="Collapsed"/>
+            <!-- Password -->
+            <TextBlock Grid.Row="3" Text="Password" FontSize="13" Margin="0,0,0,4"/>
+            <ui:PasswordBox x:Name="PasswordBox"
+                         Grid.Row="4"
+                         Margin="0,0,0,8"
+                         PlaceholderText="Domain admin password"
+                         KeyDown="Input_KeyDown"/>
 
-        <!-- Sign-in button -->
-        <Button x:Name="SignInButton"
-                Grid.Row="7"
-                Content="Sign In"
-                HorizontalAlignment="Stretch"
-                Padding="0,10"
-                FontSize="14"
-                Style="{DynamicResource AccentButtonStyle}"
-                Click="SignInButton_Click"/>
+            <!-- Error message -->
+            <TextBlock x:Name="ErrorText"
+                       Grid.Row="5"
+                       Foreground="Red"
+                       FontSize="12"
+                       TextWrapping="Wrap"
+                       Margin="0,0,0,8"
+                       Visibility="Collapsed"/>
+
+            <!-- Sign-in button -->
+            <ui:Button x:Name="SignInButton"
+                    Grid.Row="7"
+                    Content="Sign In"
+                    HorizontalAlignment="Stretch"
+                    Padding="0,10"
+                    FontSize="14"
+                    Appearance="Primary"
+                    Click="SignInButton_Click"/>
+        </Grid>
     </Grid>
-</Window>
+</ui:FluentWindow>

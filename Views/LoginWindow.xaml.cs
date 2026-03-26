@@ -1,17 +1,32 @@
 using AdminToolbox.Models;
+using System.IO;
+using System.Security;
 using System.Windows;
 using System.Windows.Input;
+using Wpf.Ui.Controls;
 
 namespace AdminToolbox.Views;
 
-public partial class LoginWindow : Window
+public partial class LoginWindow : FluentWindow
 {
+    private static readonly string SettingsDir =
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "AdminToolbox");
+    private static readonly string LastUserFile = Path.Combine(SettingsDir, "lastuser.txt");
+
     public LoginWindow(bool isLockout = false)
     {
         InitializeComponent();
 
         if (isLockout)
             SubtitleText.Text = "Session locked. Re-enter your password to continue.";
+
+        // Restore last used username
+        try
+        {
+            if (File.Exists(LastUserFile))
+                UsernameBox.Text = File.ReadAllText(LastUserFile).Trim();
+        }
+        catch { /* non-critical */ }
 
         Loaded += (_, _) =>
         {
@@ -41,7 +56,7 @@ public partial class LoginWindow : Window
             return;
         }
 
-        if (PasswordBox.SecurePassword.Length == 0)
+        if (string.IsNullOrEmpty(PasswordBox.Password))
         {
             ShowError("Please enter a password.");
             return;
@@ -69,13 +84,27 @@ public partial class LoginWindow : Window
             return;
         }
 
-        // SecurePassword returns a new SecureString each call — dispose after copying
-        using var secPwd = PasswordBox.SecurePassword;
+        // Build a SecureString from the plain-text password, then zero the source
+        var secPwd = new SecureString();
+        foreach (var c in PasswordBox.Password)
+            secPwd.AppendChar(c);
+        secPwd.MakeReadOnly();
+
         CredentialStore.Instance.Store(
             username:    username,
             domain:      domain,
             displayName: raw,
             password:    secPwd);
+
+        secPwd.Dispose();
+
+        // Save username for next session
+        try
+        {
+            Directory.CreateDirectory(SettingsDir);
+            File.WriteAllText(LastUserFile, raw);
+        }
+        catch { /* non-critical */ }
 
         var main = new MainWindow();
         main.Show();

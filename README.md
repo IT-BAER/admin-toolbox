@@ -3,7 +3,7 @@
 
 A unified Windows desktop dashboard for launching RSAT and built-in administration tools under domain admin credentials — sign in once, launch everything.
 
-Built with WPF (.NET 9) and [ModernWpf](https://github.com/Kinnara/ModernWpf) for a native Windows 11 Fluent Design look and feel.
+Built with WPF (.NET 9) and [WPF UI](https://github.com/lepoco/wpfui) for a native Windows 11 Fluent Design look and feel.
 
 ---
 
@@ -23,6 +23,8 @@ Built with WPF (.NET 9) and [ModernWpf](https://github.com/Kinnara/ModernWpf) fo
 - **System tray integration** — Minimize to the notification area. Double-click to restore. Tray context menu for Show, Lock, and Exit.
 - **Lock / credential wipe** — Lock button clears credentials from memory (SecureString, zeroed on disposal) and returns to the login screen.
 - **Smooth scrolling** — The tool grid uses frame-rate-synced lerp scrolling for fluid navigation.
+- **Remember last username** — The login screen pre-fills the username from the previous session.
+- **Double-click protection** — Tool tiles are temporarily disabled after click to prevent duplicate launches.
 
 ---
 
@@ -174,7 +176,7 @@ Admin-Toolbox/
 | Category | Technology | Version |
 |---|---|---|
 | Runtime | .NET | 9.0 |
-| UI Framework | WPF + ModernWpfUI | 0.9.6 |
+| UI Framework | WPF + WPF UI (Lepo) | 4.2.0 |
 | Credential API | CreateProcessWithLogonW | P/Invoke |
 | Installer | Inno Setup | 6 |
 | Publish | Self-contained, single-file | x64 |

@@ -16,15 +16,14 @@
     <ApplicationIcon>Assets\AdminToolbox.ico</ApplicationIcon>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="ModernWpfUI" Version="0.9.6" />
-  </ItemGroup>
-
   <!-- Copy icon to output folder so tray icon can load it at runtime -->
   <ItemGroup>
     <Content Include="Assets\AdminToolbox.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="WPF-UI" Version="4.2.0" />
   </ItemGroup>
 
 </Project>
