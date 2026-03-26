@@ -1,6 +1,5 @@
 # Admin Toolbox
 
-> **Publisher:** IT-BAER (Bruno Miglar)
 
 A unified Windows desktop dashboard for launching RSAT and built-in administration tools under domain admin credentials — sign in once, launch everything.
 
@@ -182,6 +181,18 @@ Admin-Toolbox/
 
 ---
 
-## License
+## 📄 License
 
 MIT
+
+<br>
+
+## 💜 Support
+
+If you find this tool useful, consider supporting future development:
+
+<div align="center">
+<a href="https://www.buymeacoffee.com/itbaer" target="_blank"><img src="https://github.com/user-attachments/assets/64107f03-ba5b-473e-b8ad-f3696fe06002" alt="Buy Me A Coffee" style="height: 60px; max-width: 217px;"></a>
+<br>
+<a href="https://www.paypal.com/donate/?hosted_button_id=5XXRC7THMTRRS" target="_blank">Donate via PayPal</a>
+</div>
