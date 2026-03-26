@@ -78,6 +78,12 @@ Always available on Windows 10/11 — no additional installation required:
 
 ## Installation
 
+### Download
+
+Download the latest `AdminToolbox-Setup.exe` from the [Releases](https://github.com/IT-BAER/admin-toolbox/releases) page.
+
+> **Windows SmartScreen:** Since the installer is not code-signed, Windows SmartScreen may show a warning on first run. Click **"More info"** → **"Run anyway"** to proceed. You can verify the download integrity using the `SHA256SUMS.txt` file included in each release.
+
 ### Using the Installer
 
 Run `AdminToolbox-Setup.exe`. The installer will:

@@ -30,7 +30,14 @@ jobs:
       - name: Build Installer
         run: iscc installer/AdminToolbox.iss
 
-      - name: Upload Release Asset
+      - name: Generate SHA256 Checksum
+        run: |
+          $hash = (Get-FileHash bin/Installer/AdminToolbox-Setup.exe -Algorithm SHA256).Hash
+          "$hash  AdminToolbox-Setup.exe" | Out-File -FilePath bin/Installer/SHA256SUMS.txt -Encoding utf8
+
+      - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
         with:
-          files: bin/Installer/AdminToolbox-Setup.exe
+          files: |
+            bin/Installer/AdminToolbox-Setup.exe
+            bin/Installer/SHA256SUMS.txt
