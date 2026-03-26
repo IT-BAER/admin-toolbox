@@ -1,8 +1,20 @@
 # Admin Toolbox
 
-A Windows desktop application that provides a unified dashboard for launching RSAT and Windows administration tools using domain admin credentials — without entering your password every time.
+> **Publisher:** IT-BAER (Bruno Miglar)
 
-Built with WPF (.NET 9) and [ModernWpf](https://github.com/Kinnara/ModernWpf) for a native Windows 11 look and feel.
+A unified Windows desktop dashboard for launching RSAT and built-in administration tools under domain admin credentials — sign in once, launch everything.
+
+Built with WPF (.NET 9) and [ModernWpf](https://github.com/Kinnara/ModernWpf) for a native Windows 11 Fluent Design look and feel.
+
+---
+
+## Screenshots
+
+| Login | Dashboard |
+|:---:|:---:|
+| ![Login](Assets/screenshot-login.png) | ![Dashboard](Assets/screenshot-dash.png) |
+
+---
 
 ## Features
 
@@ -13,6 +25,8 @@ Built with WPF (.NET 9) and [ModernWpf](https://github.com/Kinnara/ModernWpf) fo
 - **Lock / credential wipe** — Lock button clears credentials from memory (SecureString, zeroed on disposal) and returns to the login screen.
 - **Smooth scrolling** — The tool grid uses frame-rate-synced lerp scrolling for fluid navigation.
 
+---
+
 ## Included Tools
 
 ### RSAT Role Administration Tools
@@ -20,7 +34,7 @@ Built with WPF (.NET 9) and [ModernWpf](https://github.com/Kinnara/ModernWpf) fo
 These require the corresponding RSAT Windows capability to be installed:
 
 | Tool | Snap-in | RSAT Capability |
-|------|---------|-----------------|
+|---|---|---|
 | AD Users & Computers | `dsa.msc` | `Rsat.ActiveDirectory.DS-LDS.Tools` |
 | AD Domains and Trusts | `domain.msc` | `Rsat.ActiveDirectory.DS-LDS.Tools` |
 | AD Sites and Services | `dssite.msc` | `Rsat.ActiveDirectory.DS-LDS.Tools` |
@@ -37,7 +51,7 @@ These require the corresponding RSAT Windows capability to be installed:
 Always available on Windows 10/11 — no additional installation required:
 
 | Tool | Snap-in |
-|------|---------|
+|---|---|
 | Computer Management | `compmgmt.msc` |
 | Event Viewer | `eventvwr.msc` |
 | Services | `services.msc` |
@@ -50,11 +64,15 @@ Always available on Windows 10/11 — no additional installation required:
 | Local Group Policy Editor | `gpedit.msc` |
 | Local Security Policy | `secpol.msc` |
 
+---
+
 ## Prerequisites
 
 - **Windows 10 version 1809+** or **Windows 11** (x64)
 - .NET 9 runtime is bundled (self-contained publish)
 - Administrator rights (required for `CreateProcessWithLogonW` and RSAT installation)
+
+---
 
 ## Installation
 
@@ -85,6 +103,10 @@ AdminToolbox-Setup.exe /VERYSILENT /TASKS=""
 AdminToolbox-Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /LOG="C:\temp\install.log"
 ```
 
+Available `/TASKS` values: `rsat\ad`, `rsat\dhcp`, `rsat\dns`, `rsat\gpo`, `rsat\print`, `rsat\cert`, `rsat\fileservices`
+
+---
+
 ## Building from Source
 
 ### Requirements
@@ -109,6 +131,8 @@ dotnet publish AdminToolbox.csproj -c Release -r win-x64 --self-contained true -
 # 2. Compile installer
 & "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe" installer\AdminToolbox.iss
 ```
+
+---
 
 ## Project Structure
 
@@ -135,13 +159,29 @@ Admin-Toolbox/
 └── generate-icon.ps1          # Icon generation (System.Drawing)
 ```
 
+---
+
 ## Security
 
-- Credentials are stored in memory only using `SecureString` — never written to disk, registry, or any persistent storage.
-- The `SecureString` is zeroed and disposed on app exit, lock, or credential clear.
-- The unmanaged BSTR used for `CreateProcessWithLogonW` is zeroed via `Marshal.ZeroFreeGlobalAllocUnicode` immediately after the API call.
-- The app manifest requires administrator elevation; UAC fires once at launch.
+- Credentials are stored **in memory only** using `SecureString` — never written to disk, registry, or any persistent storage
+- The `SecureString` is zeroed and disposed on app exit, lock, or credential clear
+- The unmanaged BSTR used for `CreateProcessWithLogonW` is zeroed via `Marshal.ZeroFreeGlobalAllocUnicode` immediately after the API call
+- The app manifest requires administrator elevation; UAC fires once at launch
 
-## Publisher
+---
 
-**IT-BAER**
+## Technology Stack
+
+| Category | Technology | Version |
+|---|---|---|
+| Runtime | .NET | 9.0 |
+| UI Framework | WPF + ModernWpfUI | 0.9.6 |
+| Credential API | CreateProcessWithLogonW | P/Invoke |
+| Installer | Inno Setup | 6 |
+| Publish | Self-contained, single-file | x64 |
+
+---
+
+## License
+
+MIT
