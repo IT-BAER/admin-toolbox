@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Single-instance enforcement — launching the shortcut while the app is already running (even when minimized to tray) brings the existing window to the foreground instead of opening a new process
 - Remember last used username across sessions (stored in `%LOCALAPPDATA%\AdminToolbox\`)
 - Double-click protection on tool tiles — buttons are temporarily disabled for 2 seconds after click to prevent duplicate launches
 

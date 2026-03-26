@@ -23,6 +23,7 @@ Built with WPF (.NET 9) and [WPF UI](https://github.com/lepoco/wpfui) for a nati
 - **System tray integration** — Minimize to the notification area. Double-click to restore. Tray context menu for Show, Lock, and Exit.
 - **Lock / credential wipe** — Lock button clears credentials from memory (SecureString, zeroed on disposal) and returns to the login screen.
 - **Smooth scrolling** — The tool grid uses frame-rate-synced lerp scrolling for fluid navigation.
+- **Single-instance enforcement** — Launching the shortcut while the app is already running (even when minimized to tray) brings the existing window to the foreground.
 - **Remember last username** — The login screen pre-fills the username from the previous session.
 - **Double-click protection** — Tool tiles are temporarily disabled after click to prevent duplicate launches.
 
