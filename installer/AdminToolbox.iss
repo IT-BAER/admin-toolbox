@@ -5,7 +5,7 @@
 ; ============================================================
 
 #define AppName      "Admin Toolbox"
-#define AppVersion   "1.1.0"
+#define AppVersion   "1.1.1"
 #define AppPublisher "IT-BAER"
 #define AppExeName   "AdminToolbox.exe"
 #define AppGuid      "{{A7B3C2D1-4E5F-4A6B-8C9D-0E1F2A3B4C5D}"

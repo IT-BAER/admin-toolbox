@@ -84,7 +84,8 @@ public partial class LoginWindow : FluentWindow
             return;
         }
 
-        // Build a SecureString from the plain-text password, then zero the source
+        // WPF-UI's PasswordBox doesn't expose SecurePassword natively, so we must build it manually here.
+        // While not fully memory-hardened at the UI edge, DPAPI still protects the password while resting in the CredentialStore.
         var secPwd = new SecureString();
         foreach (var c in PasswordBox.Password)
             secPwd.AppendChar(c);

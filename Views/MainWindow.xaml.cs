@@ -16,6 +16,7 @@ public partial class MainWindow : FluentWindow
     // Tray icon
     // -----------------------------------------------------------------------
     private Forms.NotifyIcon? _trayIcon;
+    private bool _reallyExit;
 
     public MainWindow()
     {
@@ -106,6 +107,7 @@ public partial class MainWindow : FluentWindow
         RestoreFromTray();
         Dispatcher.Invoke(() =>
         {
+            _reallyExit = true;
             CredentialStore.Instance.Clear();
             Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             App.ShowLoginWindow(isLockout: true);
@@ -117,6 +119,7 @@ public partial class MainWindow : FluentWindow
     {
         Dispatcher.Invoke(() =>
         {
+            _reallyExit = true;
             CredentialStore.Instance.Clear();
             Close();
         });
@@ -222,6 +225,7 @@ public partial class MainWindow : FluentWindow
     // -----------------------------------------------------------------------
     private void LockButton_Click(object sender, RoutedEventArgs e)
     {
+        _reallyExit = true;
         CredentialStore.Instance.Clear();
         Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
         App.ShowLoginWindow(isLockout: true);
@@ -233,6 +237,13 @@ public partial class MainWindow : FluentWindow
     // -----------------------------------------------------------------------
     private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
+        if (!_reallyExit)
+        {
+            e.Cancel = true;
+            HideToTray();
+            return;
+        }
+
         // Always exit and clean up
         CredentialStore.Instance.Clear();
 
